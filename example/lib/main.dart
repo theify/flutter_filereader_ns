@@ -84,7 +84,8 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ListView.builder(
         itemBuilder: (ctx, index) {
-          return item(files.keys.elementAt(index), files.values.elementAt(index));
+          return item(
+              files.keys.elementAt(index), files.values.elementAt(index));
         },
         itemCount: files.length,
       ),

@@ -112,7 +112,10 @@ class _FileReaderViewState extends State<FileReaderView> {
   }
 
   Widget _createAndroidView() {
-    return AndroidView(viewType: "FileReader", onPlatformViewCreated: _onPlatformViewCreated, creationParamsCodec: StandardMessageCodec());
+    return AndroidView(
+        viewType: "FileReader",
+        onPlatformViewCreated: _onPlatformViewCreated,
+        creationParamsCodec: StandardMessageCodec());
   }
 
   _onPlatformViewCreated(int id) {
