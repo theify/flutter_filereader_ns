@@ -4,9 +4,10 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_filereader_example/file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import 'file.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,7 +37,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String taskId;
+  late String taskId;
 
   Map<String, String> iosfiles = {
     "docx": "assets/files/docx.docx", // IOS test
@@ -63,7 +64,7 @@ class _HomePageState extends State<HomePage> {
     "txt": "assets/files/txt.txt" // android test
   };
 
-  Map<String, String> files;
+  late Map<String, String> files;
 
   @override
   void initState() {
@@ -158,12 +159,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   _localSavedDir() async {
-    Directory dic;
+    Directory? dic;
     if (defaultTargetPlatform == TargetPlatform.android) {
       dic = await getExternalStorageDirectory();
     } else if (defaultTargetPlatform == TargetPlatform.iOS) {
       dic = await getApplicationDocumentsDirectory();
     }
-    return dic.path;
+    return dic!.path;
   }
 }

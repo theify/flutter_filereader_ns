@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
+
 class FileReader {
-  static FileReader _instance;
+  static late FileReader? _instance;
 
   factory FileReader() => _getInstance();
 
@@ -10,7 +11,7 @@ class FileReader {
     if (_instance == null) {
       _instance = FileReader._();
     }
-    return _instance;
+    return _instance!;
   }
 
   static const MethodChannel _channel = const MethodChannel('wv.io/FileReader');
@@ -19,7 +20,7 @@ class FileReader {
 
   //X5 engin  load state
   // -1 loading  5 success 10 fail
-  void engineLoadStatus(Function(bool) loadCallback) async {
+  void engineLoadStatus(Function(bool)? loadCallback) async {
     _channel.invokeMethod("isLoad").then((status) {
       if (status == 5) {
         loadCallback?.call(true);
@@ -35,7 +36,7 @@ class FileReader {
               loadCallback?.call(false);
             }
           }
-          return;
+          return Future.value(dynamic);
         });
       }
     });
@@ -43,10 +44,8 @@ class FileReader {
 
   /// open file when platformview create
   /// filepath only support local path
-  void openFile(int platformViewId, String filePath, Function(bool) onOpen) {
-    MethodChannel('wv.io/FileReader' + "_$platformViewId")
-        .invokeMethod("openFile", filePath)
-        .then((openSuccess) {
+  void openFile(int platformViewId, String filePath, Function(bool)? onOpen) {
+    MethodChannel('wv.io/FileReader' + "_$platformViewId").invokeMethod("openFile", filePath).then((openSuccess) {
       onOpen?.call(openSuccess);
     });
   }
